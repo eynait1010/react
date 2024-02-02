@@ -144,9 +144,9 @@ function FiberNode(
   this.key = key;
   this.elementType = null;
   this.type = null;
-  this.stateNode = null;
+  this.stateNode = null; // 此fiber对应的真实dom
 
-  // Fiber
+  // Fiber 树
   this.return = null;
   this.child = null;
   this.sibling = null;
@@ -155,23 +155,24 @@ function FiberNode(
   this.ref = null;
   this.refCleanup = null;
 
-  this.pendingProps = pendingProps;
-  this.memoizedProps = null;
-  this.updateQueue = null;
+  this.pendingProps = pendingProps; // 等待生效的属性
+  this.memoizedProps = null; // 已经生效的属性
+  this.updateQueue = null; // 要更新的队列
+  // class 类的实例
+  // hostRoot 要渲染的元素
   this.memoizedState = null;
   this.dependencies = null;
 
   this.mode = mode;
 
-  // Effects
-  this.flags = NoFlags;
-  this.subtreeFlags = NoFlags;
+  this.flags = NoFlags; // Effects 副作用标识（要对此节点要做什么操作
+  this.subtreeFlags = NoFlags; // 向上冒泡副作用，保证root无副作用时，子节点一定没有副作用（bubbleProperties
   this.deletions = null;
 
   this.lanes = NoLanes;
   this.childLanes = NoLanes;
 
-  this.alternate = null;
+  this.alternate = null; // 双缓存 dom diff会用到
 
   if (enableProfilerTimer) {
     // Note: The following is done to avoid a v8 performance cliff.
@@ -228,7 +229,7 @@ function FiberNode(
 //    compatible.
 function createFiber(
   tag: WorkTag,
-  pendingProps: mixed,
+  pendingProps: mixed,// 等待生效的属性
   key: null | string,
   mode: TypeOfMode,
 ): Fiber {

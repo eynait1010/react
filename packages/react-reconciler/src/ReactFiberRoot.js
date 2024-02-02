@@ -55,7 +55,7 @@ function FiberRootNode(
   formState: ReactFormState<any, any> | null,
 ) {
   this.tag = tag;
-  this.containerInfo = containerInfo;
+  this.containerInfo = containerInfo;// 兜兜转转，把div#root的dom存在this.containerInfo
   this.pendingChildren = null;
   this.current = null;
   this.pingCache = null;
@@ -172,7 +172,7 @@ export function createFiberRoot(
     concurrentUpdatesByDefaultOverride,
   );
   root.current = uninitializedFiber;
-  uninitializedFiber.stateNode = root;
+  uninitializedFiber.stateNode = root; // Fiber起点
 
   if (enableCache) {
     const initialCache = createCache();

@@ -181,7 +181,7 @@ export function initializeUpdateQueue<State>(fiber: Fiber): void {
     firstBaseUpdate: null,
     lastBaseUpdate: null,
     shared: {
-      pending: null,
+      pending: null, // 循环链表
       lanes: NoLanes,
       hiddenCallbacks: null,
     },
